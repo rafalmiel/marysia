@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>NewColumnDialog</class>
+ <widget class="QDialog" name="NewColumnDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="5" column="0">
+    <widget class="QLabel" name="lblAutoincrement">
+     <property name="text">
+      <string>Autoincrement</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QCheckBox" name="cbNullable">
+     <property name="text">
+      <string>null</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0">
+    <widget class="QLabel" name="lblDefaultValue">
+     <property name="text">
+      <string>Domyślna wartość</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="lblSize">
+     <property name="text">
+      <string>Rozmiar</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="lblName">
+     <property name="text">
+      <string>Nazwa</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="lblType">
+     <property name="text">
+      <string>Typ</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QSpinBox" name="spitSize"/>
+   </item>
+   <item row="9" column="0" colspan="2">
+    <widget class="QPushButton" name="btnAdd">
+     <property name="text">
+      <string>Dodaj kolumnę</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="lblNullable">
+     <property name="text">
+      <string>Nullable</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="edName"/>
+   </item>
+   <item row="1" column="1">
+    <widget class="QComboBox" name="comboType">
+     <item>
+      <property name="text">
+       <string>VARCHAR</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>TINYINT</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>SMALLINT</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>INT</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>DOUBLE</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>DATE</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>DATETIME</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>BLOB</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QCheckBox" name="cbAutoincrement">
+     <property name="text">
+      <string>au</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0" colspan="2">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="7" column="0">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>150</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="3" column="1">
+    <widget class="QCheckBox" name="cbPK">
+     <property name="text">
+      <string>pk</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="lblPK">
+     <property name="text">
+      <string>Primary Key</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>comboType</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>NewColumnDialog</receiver>
+   <slot>setupControls()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>259</x>
+     <y>47</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbAutoincrement</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>NewColumnDialog</receiver>
+   <slot>setupControls()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>277</x>
+     <y>143</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>setupControls()</slot>
+ </slots>
+</ui>
