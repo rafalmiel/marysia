@@ -22,13 +22,18 @@
 
 #include <stdint.h>
 
+
 class String;
+class Value;
+class Column;
 
 class RandGenerator
 {
 public:
     static String randomString(uint8_t len);
     static int32_t randomInt(int32_t max);
+    static double randomDouble();
+    static Value *randomValue(Column *column);
 };
 
 #endif // RANDGENERATOR_H

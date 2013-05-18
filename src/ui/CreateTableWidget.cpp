@@ -4,7 +4,6 @@
 #include <QInputDialog>
 #include <QDebug>
 
-#include <filestruct/TableManager.h>
 #include <table/Column.h>
 
 #include "NewColumnDialog.h"
@@ -12,9 +11,10 @@
 #include "model/CreateTableModel.h"
 #include "model/CreateTableItemDelegate.h"
 
-CreateTableWidget::CreateTableWidget(QWidget *parent) :
+CreateTableWidget::CreateTableWidget(TableManager *tableManager, QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::CreateTableWidget)
+    ui(new Ui::CreateTableWidget),
+    m_tableManager(tableManager)
 {
     ui->setupUi(this);
 
@@ -34,13 +34,12 @@ void CreateTableWidget::on_btnSave_clicked()
 {
     QString tableName = QInputDialog::getText(this, "Nazwa tabeli", "Proszę podać nazwę nowej tabeli");
     if (tableName != "") {
-        TableManager tManager;
-        tManager.createTable(tableName.toStdString());
+        m_tableManager->createTable(tableName.toStdString());
         const QVector<Column *> &columns = m_createTableModel->columns();
         const QVector<Column *> &pk_columns = m_createTableModel->pkColumns();
 
         foreach (Column *col, columns) {
-            tManager.addColumn(col);
+            m_tableManager->addColumn(col);
         }
         bool first = true;
         QString pkColNames = "";
@@ -50,13 +49,13 @@ void CreateTableWidget::on_btnSave_clicked()
             pkColNames += col->columnName().c_str();
         }
 
-        tManager.addKey("primary_key", pkColNames.toStdString(), true, true);
-        tManager.closeTable();
+        m_tableManager->addKey("primary_key", pkColNames.toStdString(), true, true);
+        //m_tableManager->closeTable();
 
-        ui->tableNewTable->setModel(NULL);
-        delete m_createTableModel;
+        //ui->tableNewTable->setModel(NULL);
+        //delete m_createTableModel;
 
-        emit tableCreated(tableName);
+        //emit tableCreated(tableName);
     }
 }
 

@@ -24,7 +24,7 @@
    <item row="4" column="1">
     <widget class="QCheckBox" name="cbNullable">
      <property name="text">
-      <string>null</string>
+      <string/>
      </property>
     </widget>
    </item>
@@ -123,7 +123,7 @@
    <item row="5" column="1">
     <widget class="QCheckBox" name="cbAutoincrement">
      <property name="text">
-      <string>au</string>
+      <string/>
      </property>
     </widget>
    </item>
@@ -159,7 +159,7 @@
    <item row="3" column="1">
     <widget class="QCheckBox" name="cbPK">
      <property name="text">
-      <string>pk</string>
+      <string/>
      </property>
     </widget>
    </item>
@@ -199,6 +199,22 @@
     <hint type="sourcelabel">
      <x>277</x>
      <y>143</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbPK</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>NewColumnDialog</receiver>
+   <slot>setupControls()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>277</x>
+     <y>103</y>
     </hint>
     <hint type="destinationlabel">
      <x>199</x>

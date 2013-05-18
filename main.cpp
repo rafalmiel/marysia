@@ -1,4 +1,3 @@
-
 #include <QApplication>
 #include <src/ui/MainWindow.h>
 

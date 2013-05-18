@@ -58,10 +58,11 @@ public:
 
     Page* getPage(page_id_t id, const String& filename = "data.bin", bool fixedSizePage = true);
     void savePage(Page* page);
+
     
     File* fileByFilename(const String& filename);
-private:
     void ensureFileInFilemap(const String& filename);
+private:
 
     void writePageToDisk(Page* page);
 

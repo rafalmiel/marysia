@@ -42,6 +42,7 @@ public:
     inline String operator+(const String& str) const { return m_string + str.m_string; }
     inline String operator+(int32_t num) const { return (m_string + String::intToStr(num).std_str()); }
     inline bool operator!=(const String& str) const { return m_string != str.m_string; }
+    inline bool operator==(const std::string& str) const { return m_string == str; }
 
     std::vector<String> split(const String& delimeter) const;
 

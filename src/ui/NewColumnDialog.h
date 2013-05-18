@@ -21,6 +21,7 @@ private slots:
     void setupControls();
 
     void on_btnAdd_clicked();
+    void on_spitSize_valueChanged(int arg1);
 
 private:
     enum TypeIndex {
@@ -40,6 +41,8 @@ private:
 
     CreateTableModel *m_createTableModel;
     QWidget *m_defaultValWidget;
+
+    int m_varcharSize;
 };
 
 #endif // NEWCOLUMNDIALOG_H

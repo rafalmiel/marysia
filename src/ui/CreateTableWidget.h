@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include <filestruct/TableManager.h>
+
 namespace Ui {
 class CreateTableWidget;
 }
@@ -15,7 +17,7 @@ class CreateTableWidget : public QWidget
     Q_OBJECT
     
 public:
-    explicit CreateTableWidget(QWidget *parent = 0);
+    explicit CreateTableWidget(TableManager *tableManager, QWidget *parent = 0);
     ~CreateTableWidget();
     
 private slots:
@@ -31,6 +33,8 @@ private:
 
     CreateTableModel *m_createTableModel;
     CreateTableItemDelegate *m_createTableItemDelegate;
+
+    TableManager *m_tableManager;
 };
 
 #endif // CREATETABLEWIDGET_H

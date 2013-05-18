@@ -27,13 +27,23 @@
 #include "table/KeyValue.h"
 #include "table/Row.h"
 
-TableManager::TableManager(): m_buffer(NULL)
+TableManager::TableManager(): m_buffer(NULL), m_isTableOpen(false)
 {
     m_buffer = new Buffer();
     m_tableinfo = new Tableinfo(m_buffer);
     m_tablespace = new Tablespace(m_buffer);
     m_btree = new BTree( m_buffer );
     m_block_storage_manager = new BlockStorageManager( m_buffer );
+}
+
+bool TableManager::isOpened() const
+{
+    return m_isTableOpen;
+}
+
+bool TableManager::tableExists(const String &tablename) const
+{
+    return m_tableinfo->tableInfoExists( tablename );
 }
 
 void TableManager::createTable(const String& tablename)
@@ -51,6 +61,8 @@ void TableManager::createTable(const String& tablename)
         m_block_storage_manager->openTable( Tablespace::createTableDataFilename( tablename ), m_tableinfo->page(), m_tablespace );
 
         m_btree->openTable( Tablespace::createTableDataFilename( tablename ), m_tableinfo->page(), m_tablespace, m_block_storage_manager );
+
+        m_isTableOpen = true;
     }
     else
     {
@@ -58,17 +70,31 @@ void TableManager::createTable(const String& tablename)
     }
 }
 
-void TableManager::openTable(const String& tablename)
+bool TableManager::openTable(const String& tablename)
 {
-    m_tableinfo->openTable( tablename );
-    
-    m_tablespace->openTable( tablename, m_tableinfo->page() );
-    
-    m_block_storage_manager->openTable( Tablespace::createTableDataFilename( tablename ), m_tableinfo->page(), m_tablespace );
+    if ( m_tableinfo->tableInfoExists( tablename ) )
+    {
+        m_tableinfo->openTable( tablename );
 
-    m_btree->openTable( Tablespace::createTableDataFilename( tablename ), m_tableinfo->page(), m_tablespace, m_block_storage_manager );
+        m_tablespace->openTable( tablename, m_tableinfo->page() );
 
-    
+        m_block_storage_manager->openTable( Tablespace::createTableDataFilename( tablename ), m_tableinfo->page(), m_tablespace );
+
+        m_btree->openTable( Tablespace::createTableDataFilename( tablename ), m_tableinfo->page(), m_tablespace, m_block_storage_manager );
+
+        m_isTableOpen = true;
+
+        return true;
+    } else {
+
+        m_isTableOpen = false;
+        return false;
+    }
+}
+
+String TableManager::currentTableName() const
+{
+    return m_tableinfo->currentTableName();
 }
 
 void TableManager::addColumn(Column* column)
@@ -84,6 +110,11 @@ void TableManager::addKey(const String& key_name, const String& columns, bool is
     {
         m_tablespace->addKey( key_info, m_tableinfo );
     }
+}
+
+Row* TableManager::read(const String& key_name, KeyValue* key_value)
+{
+    return m_btree->read(key_name, key_value);
 }
 
 Row* TableManager::readNext()
@@ -121,6 +152,7 @@ void TableManager::closeTable()
 {
     m_tableinfo->closeTable();
     m_tablespace->closeTable();
+    m_isTableOpen = false;
 }
 
 TableManager::~TableManager()

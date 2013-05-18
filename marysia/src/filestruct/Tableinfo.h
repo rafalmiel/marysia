@@ -46,6 +46,11 @@ public:
         m_current_filename = createTableFilename( tablename );
     }
 
+    String currentTableName() const
+    {
+        return m_current_tablename;
+    }
+
     void openTable( const String& tablename );
 
     void addColumn( Column* column );
@@ -53,6 +58,7 @@ public:
 
     Column* columnByNum( int num ) const { return m_page_tableinfo->columnByNum( num ); }
     Column* columnByName( const String& name ) { return m_page_tableinfo->columnByName( name ); }
+    uint16_t columnCount() const {return m_page_tableinfo->columnCount(); }
 
     void closeTable();
 

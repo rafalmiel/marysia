@@ -20,8 +20,19 @@
 
 #include <iostream>
 #include <stdlib.h>
+#include <limits>
 
+#include <table/Column.h>
+#include <table/values/ValueBlob.h>
+#include <table/values/ValueDate.h>
+#include <table/values/ValueDatetime.h>
+#include <table/values/ValueDouble.h>
+#include <table/values/ValueInteger.h>
+#include <table/values/ValueSmallint.h>
+#include <table/values/ValueTinyint.h>
+#include <table/values/ValueVarchar.h>
 #include "utils/String.h"
+#include "utils/ByteData.h"
 
 using namespace std;
 
@@ -41,5 +52,48 @@ String RandGenerator::randomString(uint8_t len)
 int32_t RandGenerator::randomInt(int32_t max)
 {
     return rand() % max;
+}
+
+double RandGenerator::randomDouble()
+{
+    return drand48();
+}
+
+Value *RandGenerator::randomValue(Column *column)
+{
+    uint32_t size = 0;
+    uint8_t* blob = NULL;
+    //ByteData::dataMemSet( blob, 77, size );
+
+    switch (column->type())
+    {
+    case VARCHAR_TYPE:
+        return new ValueVarchar(randomString(column->typeLen()).c_str());
+        break;
+    case INT_TYPE:
+        return new ValueInteger(randomInt(std::numeric_limits<int32_t>().max()));
+        break;
+    case SMALLINT_TYPE:
+        return new ValueSmallint(randomInt(std::numeric_limits<int16_t>().max()));
+        break;
+    case TINYINT_TYPE:
+        return new ValueTinyint(randomInt(std::numeric_limits<int8_t>().max()));
+        break;
+    case DATE_TYPE:
+        return new ValueDate(randomInt(std::numeric_limits<int32_t>().max()));
+        break;
+    case DATETIME_TYPE:
+        return new ValueDatetime(randomInt(std::numeric_limits<int32_t>().max()));
+    break;
+    case DOUBLE_TYPE:
+        return new ValueDouble(randomDouble());
+        break;
+    case BLOB_TYPE:
+        size = abs(randomInt(1024*32));
+        blob = new uint8_t[size];
+        ByteData::dataMemSet(blob, 77, size);
+        return new ValueBlob(blob, size);
+        break;
+    }
 }
 

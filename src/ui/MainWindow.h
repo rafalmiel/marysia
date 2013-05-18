@@ -3,11 +3,14 @@
 
 #include <QMainWindow>
 
+#include <filestruct/TableManager.h>
+
 namespace Ui {
 class MainWindow;
 }
 
 class CreateTableWidget;
+class TableViewWidget;
 
 class MainWindow : public QMainWindow
 {
@@ -20,10 +23,13 @@ public:
 private slots:
     void on_actionCreateTable_triggered();
 
+    void on_actionOpenTable_triggered();
+
 private:
     Ui::MainWindow *ui;
 
-    CreateTableWidget *m_createTableWidget;
+
+    TableManager *m_tableManager;
 };
 
 #endif // MAINWINDOW_H

@@ -20,13 +20,14 @@
 #ifndef TABLEMANAGER_H
 #define TABLEMANAGER_H
 
+#include <utils/String.h>
+
 class BlockStorageManager;
 class BTree;
 class Buffer;
 class Column;
 class KeyValue;
 class Row;
-class String;
 class Tableinfo;
 class Tablespace;
 
@@ -37,10 +38,14 @@ public:
     virtual ~TableManager();
 
     void createTable( const String& tablename );
-    void openTable( const String& tablename );
+    bool openTable( const String& tablename );
     void closeTable();
+    bool isOpened() const;
+    bool tableExists( const String &tablename ) const;
 
     void addColumn( Column* column );
+
+    String currentTableName() const;
 
     Tableinfo* meta() const { return m_tableinfo; }
     Tablespace* data() const { return m_tablespace; }
@@ -48,6 +53,7 @@ public:
     void readInit(const String& key_name);
     Row* readNext();
     void readClose();
+    Row* read(const String& key_name, KeyValue* key_value);
     
     //columns - column names separated by ";"
     void addKey(const String& key_name, const String& columns, bool is_primary, bool is_unique);
@@ -65,6 +71,8 @@ private:
     BlockStorageManager* m_block_storage_manager;
 
     Buffer* m_buffer;
+
+    bool m_isTableOpen;
 };
 
 #endif // TABLEMANAGER_H

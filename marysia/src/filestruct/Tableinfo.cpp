@@ -30,7 +30,7 @@
 
 using namespace std;
 
-Tableinfo::Tableinfo(Buffer* buffer): m_buffer(buffer)
+Tableinfo::Tableinfo(Buffer* buffer): m_buffer(buffer), m_page_tableinfo(NULL)
 {
 
 }
@@ -44,9 +44,9 @@ PageTableInfo* Tableinfo::createTableInfo(const String& tablename)
 {
     if ( ! tableInfoExists( tablename ) )
     {
-        return m_page_tableinfo = PageFactory::createPageTableInfo( tablename );
+        m_page_tableinfo = PageFactory::createPageTableInfo( tablename );
+        return m_page_tableinfo;
     }
-    return m_page_tableinfo = PageFactory::createPageTableInfo( tablename );
 }
 
 void Tableinfo::openTable(const String& tablename)

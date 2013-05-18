@@ -19,7 +19,8 @@ NewColumnDialog::NewColumnDialog(CreateTableModel *model, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::NewColumnDialog),
     m_createTableModel(model),
-    m_defaultValWidget(NULL)
+    m_defaultValWidget(NULL),
+    m_varcharSize(32)
 {
     ui->setupUi(this);
 
@@ -33,7 +34,7 @@ void NewColumnDialog::setupControls()
     switch (ci) {
     case TYPE_VARCHAR:
         replaceDefaultValWidget(new QLineEdit());
-        ui->spitSize->setValue(32);
+        ui->spitSize->setValue(m_varcharSize);
         break;
     case TYPE_TINYINT:
         replaceDefaultValWidget(new QSpinBox());
@@ -84,6 +85,13 @@ void NewColumnDialog::setupControls()
     if (ui->cbAutoincrement->isChecked()) {
         ui->cbPK->setChecked(true);
     }
+
+    if (ui->cbPK->isChecked()) {
+        ui->cbNullable->setChecked(false);
+        ui->cbNullable->setEnabled(false);
+    } else {
+        ui->cbNullable->setEnabled(true);
+    }
 }
 
 void NewColumnDialog::replaceDefaultValWidget(QWidget *widget)
@@ -110,7 +118,7 @@ void NewColumnDialog::on_btnAdd_clicked()
         QMessageBox::warning(this, "Błąd", "Nazwa tabeli nie może być pusta");
         return;
     }
-    if (m_createTableModel->columnNameExists(ui->edName->text().trimmed().toStdString())) {
+    if (m_createTableModel->columnNameExists(ui->edName->text().trimmed())) {
         QMessageBox::warning(this, "Błąd", "Kolumna o podanej nazwie istnieje");
         return;
     }
@@ -174,3 +182,8 @@ void NewColumnDialog::on_btnAdd_clicked()
     close();
 }
 
+
+void NewColumnDialog::on_spitSize_valueChanged(int size)
+{
+    if (ui->comboType->currentIndex() == TYPE_VARCHAR) m_varcharSize = size;
+}

@@ -146,7 +146,6 @@ void PageTableInfo::addColumn(Column* column)
     if (m_columns_map.find(column->columnName().c_str()) == m_columns_map.end())
     {
         column->setColumnNr( m_columns.size() );
-        
         m_columns.push_back(column);
         m_columns_map[column->columnName().c_str()] = column;
         
