@@ -39,7 +39,7 @@ void MainWindow::on_actionOpenTable_triggered()
             TableViewWidget *tableViewWidget = new TableViewWidget(m_tableManager);
             setCentralWidget(tableViewWidget);
         } else {
-            QMessageBox::warning(this, "Błąd", "Tabela o podanej nazwie nie istnieje");
+            QMessageBox::warning(this, QString::fromUtf8("Błąd"), "Tabela o podanej nazwie nie istnieje");
         }
     }
 }

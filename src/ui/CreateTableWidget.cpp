@@ -3,6 +3,7 @@
 
 #include <QInputDialog>
 #include <QDebug>
+#include <QMessageBox>
 
 #include <table/Column.h>
 
@@ -32,24 +33,34 @@ CreateTableWidget::~CreateTableWidget()
 
 void CreateTableWidget::on_btnSave_clicked()
 {
-    QString tableName = QInputDialog::getText(this, "Nazwa tabeli", "Proszę podać nazwę nowej tabeli");
+    QString tableName = QInputDialog::getText(this, "Nazwa tabeli", QString::fromUtf8("Proszę podać nazwę nowej tabeli"));
     if (tableName != "") {
-        m_tableManager->createTable(tableName.toStdString());
-        const QVector<Column *> &columns = m_createTableModel->columns();
-        const QVector<Column *> &pk_columns = m_createTableModel->pkColumns();
-
-        foreach (Column *col, columns) {
-            m_tableManager->addColumn(col);
+        if (m_createTableModel->pkColumns().count() == 0) {
+            QMessageBox::warning(this, QString::fromUtf8("Błąd zapisu"), QString::fromUtf8("Nie zdefiniowano ani jednej kolumny klucza głównego"));
+            return;
         }
-        bool first = true;
-        QString pkColNames = "";
-        foreach (Column *col, pk_columns) {
-            if (!first) pkColNames += ";";
-            first = false;
-            pkColNames += col->columnName().c_str();
+        if (!m_tableManager->tableExists(tableName.toStdString())) {
+            m_tableManager->createTable(tableName.toStdString());
+            const QVector<Column *> &columns = m_createTableModel->columns();
+            const QVector<Column *> &pk_columns = m_createTableModel->pkColumns();
+
+            foreach (Column *col, columns) {
+                m_tableManager->addColumn(col);
+            }
+            bool first = true;
+            QString pkColNames = "";
+            foreach (Column *col, pk_columns) {
+                if (!first) pkColNames += ";";
+                first = false;
+                pkColNames += col->columnName().c_str();
+            }
+
+            m_tableManager->addKey("primary_key", pkColNames.toStdString(), true, true);
+            QMessageBox::warning(this, QString::fromUtf8("Sukces"), QString::fromUtf8("Tabela zapisana pomyślnie"));
+        } else {
+            QMessageBox::warning(this, QString::fromUtf8("Błąd zapisu"), "Tabela o podanej nazwie istnieje");
         }
 
-        m_tableManager->addKey("primary_key", pkColNames.toStdString(), true, true);
         //m_tableManager->closeTable();
 
         //ui->tableNewTable->setModel(NULL);

@@ -119,7 +119,7 @@ QVariant CreateTableModel::headerData(int section, Qt::Orientation orientation, 
         case COLUMN_SIZE: return QString("Rozmiar");
         case COLUMN_NULLABLE: return QString("Nullable");
         case COLUMN_AUTOINCREMENT: return QString("Autoincrement");
-        case COLUMN_DEFAULT_VAL: return QString("Domyślna wartość");
+        case COLUMN_DEFAULT_VAL: return QString::fromUtf8("Domyślna wartość");
         case COLUMN_PK: return QString("PK");
         default:
             return QVariant();

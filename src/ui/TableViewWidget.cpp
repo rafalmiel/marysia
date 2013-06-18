@@ -27,7 +27,8 @@ TableViewWidget::~TableViewWidget()
 
 void TableViewWidget::on_btnAddRandomRows_clicked()
 {
-    int cnt = QInputDialog::getInt(this, QString::fromUtf8("Liczba losowych rekordów"), "Proszę podać liczbę losowych rekordów",
+    int cnt = QInputDialog::getInt(this, QString::fromUtf8("Liczba losowych rekordów"),
+                                   QString::fromUtf8("Proszę podać liczbę losowych rekordów"),
                              1, 1);
     int resCount = 0;
     for (int i = 0; i < cnt; ++i) {
