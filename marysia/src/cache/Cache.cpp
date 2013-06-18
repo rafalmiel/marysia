@@ -134,15 +134,6 @@ void Cache::writePageToDisk(Page* page)
     {
         page->resetData();
     }
-
-    if (page->isFixedLenghtPage() && (page->pageId() == 129 ))
-    {
-        File file;
-        file.mopen((String)"page_"+page_id);
-        file.mwrite(0,page->data()->dataPtr(), page->data()->size());
-        file.mflush();
-        file.mclose();
-    }
     
     ByteData* data = page->data();
     
