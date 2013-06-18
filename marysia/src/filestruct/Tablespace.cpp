@@ -16,7 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "buffer/Buffer.h"
+#include "cache/Cache.h"
 #include "filestruct/Tableinfo.h"
 #include "filestruct/Tablespace.h"
 #include "io/File.h"
@@ -29,7 +29,7 @@
 #include "page/data/PageSystemSegment.h"
 #include "page/PageFactory.h"
 
-Tablespace::Tablespace(Buffer* buffer):m_buffer(buffer)
+Tablespace::Tablespace(Cache* buffer):m_buffer(buffer)
 {
 }
 

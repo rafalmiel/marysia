@@ -22,7 +22,7 @@
 #include <iostream>
 #include <stdlib.h>
 
-#include "buffer/Buffer.h"
+#include "cache/Cache.h"
 #include "filestruct/BlockStorageManager.h"
 #include "filestruct/Tablespace.h"
 #include "page/data/PageIndexIntern.h"
@@ -37,7 +37,7 @@
 
 using namespace std;
 
-BTree::BTree(Buffer* buf):
+BTree::BTree(Cache* buf):
     m_buffer( buf ),
     m_data_filename( "" ),
     m_tablespace( 0 ),

@@ -22,7 +22,7 @@
 
 #include "page/tableinfo/PageTableInfo.h"
 
-class Buffer;
+class Cache;
 class Column;
 class KeyInfo;
 
@@ -31,7 +31,7 @@ class KeyInfo;
 class Tableinfo
 {
 public:
-    Tableinfo(Buffer* buffer);
+    Tableinfo(Cache* buffer);
 
     PageTableInfo* createTableInfo(const String& tablename);
     PageTableInfo* getTableInfo();
@@ -64,7 +64,7 @@ public:
 
     PageTableInfo* page() const { return m_page_tableinfo; }
 private:
-    Buffer* m_buffer;
+    Cache* m_buffer;
 
     String m_current_tablename;
     String m_current_filename;

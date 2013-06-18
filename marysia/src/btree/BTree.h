@@ -22,7 +22,7 @@
 #include "page/Page.h"
 
 class BlockStorageManager;
-class Buffer;
+class Cache;
 class KeyInfo;
 class KeyValue;
 class Page;
@@ -37,7 +37,7 @@ class Tablespace;
 class BTree
 {
 public:
-    BTree(Buffer* buf);
+    BTree(Cache* buf);
 
     void openTable(const String& data_filename, PageTableInfo* page_table_info, Tablespace* tablespace, BlockStorageManager* block_storage_manager );
     const String& filename() const { return m_data_filename; }
@@ -60,7 +60,7 @@ private:
     
     void createNewRoot(PageIndex* indexIntern1, PageIndex* indexIntern2, KeyValue* key);
         
-    Buffer* m_buffer;
+    Cache* m_buffer;
     BlockStorageManager* m_block_storage_manager;
     Tablespace* m_tablespace;
     String m_data_filename;

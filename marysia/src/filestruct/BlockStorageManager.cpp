@@ -20,7 +20,7 @@
 
 #include <vector>
 
-#include "buffer/Buffer.h"
+#include "cache/Cache.h"
 #include "filestruct/Tablespace.h"
 #include "table/KeyInfo.h"
 #include "page/data/PageBlockStorage.h"
@@ -30,7 +30,7 @@
 #include "page/tableinfo/PageTableInfo.h"
 #include "table/BlockData.h"
 
-BlockStorageManager::BlockStorageManager(Buffer* buffer): 
+BlockStorageManager::BlockStorageManager(Cache* buffer): 
     m_buffer(buffer)
 {
 

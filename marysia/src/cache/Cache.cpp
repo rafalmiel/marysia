@@ -17,7 +17,7 @@
  */
 
 
-#include "Buffer.h"
+#include "Cache.h"
 
 #include <iostream>
 #include <stdlib.h>
@@ -28,7 +28,7 @@
 
 using namespace std;
 
-Buffer::Buffer(const String& filename)
+Cache::Cache(const String& filename)
 {
     File* file = new File();
     
@@ -36,17 +36,17 @@ Buffer::Buffer(const String& filename)
     appendFile(file);
 }
 
-Buffer::Buffer(File* file)
+Cache::Cache(File* file)
 {
     appendFile(file);
 }
 
-Buffer::Buffer()
+Cache::Cache()
 {
 
 }
 
-Buffer::~Buffer()
+Cache::~Cache()
 {
     for (file_map_t::const_iterator it = m_map.begin(); it != m_map.end(); ++it)
     {
@@ -57,17 +57,17 @@ Buffer::~Buffer()
     m_map.clear();
 }
 
-void Buffer::appendFile(File *file)
+void Cache::appendFile(File *file)
 {
     m_map[file->filename().c_str()] = file;
 }
 
-String Buffer::createBufferKey(const String& filename, page_id_t page_id)
+String Cache::createBufferKey(const String& filename, page_id_t page_id)
 {
     return filename + ":" + page_id;
 }
 
-Page* Buffer::getPage(page_id_t id, const String& filename, bool fixedSizePage)
+Page* Cache::getPage(page_id_t id, const String& filename, bool fixedSizePage)
 {
     String key = createBufferKey(filename, id);
 
@@ -105,12 +105,12 @@ Page* Buffer::getPage(page_id_t id, const String& filename, bool fixedSizePage)
 
 }
 
-File* Buffer::fileByFilename(const String& filename)
+File* Cache::fileByFilename(const String& filename)
 {
     return m_map[ filename.c_str() ];
 }
 
-void Buffer::ensureFileInFilemap(const String& filename)
+void Cache::ensureFileInFilemap(const String& filename)
 {
     File* file = NULL;
 
@@ -122,7 +122,7 @@ void Buffer::ensureFileInFilemap(const String& filename)
     }
 }
 
-void Buffer::writePageToDisk(Page* page)
+void Cache::writePageToDisk(Page* page)
 {
     const String& filename = page->filename();
     
@@ -158,7 +158,7 @@ void Buffer::writePageToDisk(Page* page)
     m_map[ filename.c_str() ]->mflush();
 }
 
-void Buffer::savePage(Page* page)
+void Cache::savePage(Page* page)
 {
     String key = createBufferKey(page->filename(), page->pageId());
     buffer_map_t::iterator it = m_buffer.find(key);

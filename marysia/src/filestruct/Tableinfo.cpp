@@ -22,7 +22,7 @@
 #include <iostream>
 #include <stdlib.h>
 
-#include "buffer/Buffer.h"
+#include "cache/Cache.h"
 #include "io/File.h"
 #include "table/KeyInfo.h"
 #include "page/PageFactory.h"
@@ -30,7 +30,7 @@
 
 using namespace std;
 
-Tableinfo::Tableinfo(Buffer* buffer): m_buffer(buffer), m_page_tableinfo(NULL)
+Tableinfo::Tableinfo(Cache* buffer): m_buffer(buffer), m_page_tableinfo(NULL)
 {
 
 }

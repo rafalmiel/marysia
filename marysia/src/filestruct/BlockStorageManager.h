@@ -23,7 +23,7 @@
 #include "page/Page.h"
 #include "table/BlockDefs.h"
 
-class Buffer;
+class Cache;
 class BlockData;
 class PageBlockStorage;
 class PageSystemSegment;
@@ -32,7 +32,7 @@ class Tablespace;
 
 class BlockStorageManager {
 public:
-    BlockStorageManager(Buffer* buffer);
+    BlockStorageManager(Cache* buffer);
     
     void openTable(const String& data_filename, PageTableInfo* page_table_info, Tablespace* tablespace);
     
@@ -46,7 +46,7 @@ private:
     
     Tablespace* m_tablespace;
     PageTableInfo* m_page_tableinfo;
-    Buffer* m_buffer;
+    Cache* m_buffer;
     String m_data_filename;
 };
 

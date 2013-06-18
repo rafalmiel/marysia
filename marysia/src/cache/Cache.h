@@ -45,14 +45,14 @@ struct buffer_item_struct
     uint8_t usage_count;
 };
 
-class Buffer
+class Cache
 {
 public:
-    Buffer(const String& filename);
-    Buffer(File* file);
-    Buffer();
+    Cache(const String& filename);
+    Cache(File* file);
+    Cache();
 
-    virtual ~Buffer();
+    virtual ~Cache();
 
     void appendFile(File* file);
 

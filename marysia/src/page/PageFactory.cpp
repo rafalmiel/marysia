@@ -20,7 +20,7 @@
 
 #include <iostream>
 
-#include "buffer/Buffer.h"
+#include "cache/Cache.h"
 #include "data/PageBlockStorage.h"
 #include "data/PageIndexIntern.h"
 #include "data/PageIndexLeaf.h"

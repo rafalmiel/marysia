@@ -24,7 +24,7 @@
 
 class BlockStorageManager;
 class BTree;
-class Buffer;
+class Cache;
 class Column;
 class KeyValue;
 class Row;
@@ -70,7 +70,7 @@ private:
     BTree* m_btree;
     BlockStorageManager* m_block_storage_manager;
 
-    Buffer* m_buffer;
+    Cache* m_buffer;
 
     bool m_isTableOpen;
 };

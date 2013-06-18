@@ -19,7 +19,7 @@
 
 #include "TableManager.h"
 
-#include "buffer/Buffer.h"
+#include "cache/Cache.h"
 #include "btree/BTree.h"
 #include "filestruct/BlockStorageManager.h"
 #include "filestruct/Tableinfo.h"
@@ -29,7 +29,7 @@
 
 TableManager::TableManager(): m_buffer(NULL), m_isTableOpen(false)
 {
-    m_buffer = new Buffer();
+    m_buffer = new Cache();
     m_tableinfo = new Tableinfo(m_buffer);
     m_tablespace = new Tablespace(m_buffer);
     m_btree = new BTree( m_buffer );

@@ -35,7 +35,7 @@ class PageBlockStorage;
 class PageIndexLeaf;
 class PageIndexIntern;
 class PageIndex;
-class Buffer;
+class Cache;
 class PageTableInfo;
 
 
@@ -47,7 +47,7 @@ struct page_info_t {
 class Tablespace
 {
 public:
-    Tablespace(Buffer* buffer);
+    Tablespace(Cache* buffer);
 
     enum SystemPageIds
     {
@@ -87,7 +87,7 @@ public:
     PageIndex* pageIndex( page_id_t page_id ) const;
     PageBlockStorage* pageBlockStorage(page_id_t page_id) const;
 private:
-    Buffer* m_buffer;
+    Cache* m_buffer;
     PageTableInfo* m_page_tableinfo;
 
 

@@ -4,7 +4,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include "table/Row.h"
-#include "buffer/Buffer.h"
+#include "cache/Cache.h"
 #include "filestruct/TableManager.h"
 #include "table/columns/ColumnVarchar.h"
 #include "table/columns/ColumnInteger.h"
