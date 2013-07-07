@@ -1,6 +1,8 @@
 #include "ColumnValueProber.h"
 #include "ui_ColumnValueProber.h"
 
+#include <limits>
+
 #include <QLineEdit>
 #include <QSpinBox>
 #include <QDateEdit>
@@ -76,12 +78,18 @@ void ColumnValueProber::initColumn(Column *column)
         break;
     case INT_TYPE:
         m_valueWidget = new QSpinBox();
+        static_cast<QSpinBox *>(m_valueWidget)->setMinimum(std::numeric_limits<qint32>().min());
+        static_cast<QSpinBox *>(m_valueWidget)->setMaximum(std::numeric_limits<qint32>().max());
         break;
     case SMALLINT_TYPE:
         m_valueWidget = new QSpinBox();
+        static_cast<QSpinBox *>(m_valueWidget)->setMinimum(std::numeric_limits<qint16>().min());
+        static_cast<QSpinBox *>(m_valueWidget)->setMaximum(std::numeric_limits<qint16>().max());
         break;
     case TINYINT_TYPE:
         m_valueWidget = new QSpinBox();
+        static_cast<QSpinBox *>(m_valueWidget)->setMinimum(std::numeric_limits<qint8>().min());
+        static_cast<QSpinBox *>(m_valueWidget)->setMaximum(std::numeric_limits<qint8>().max());
         break;
     case DATETIME_TYPE:
         m_valueWidget = new QDateTimeEdit();
@@ -97,7 +105,7 @@ void ColumnValueProber::initColumn(Column *column)
         break;
     }
 
-    ui->gridLayout->addWidget(m_valueWidget, 0, -0);
+    ui->gridLayout->addWidget(m_valueWidget, 0, 0);
 }
 
 

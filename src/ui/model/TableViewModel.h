@@ -18,6 +18,7 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
 
     void loadAllRows();
+    void removeAllRows();
 
     void setRow(Row *row);
 

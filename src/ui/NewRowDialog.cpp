@@ -14,7 +14,7 @@
 
 #include "ColumnValueProber.h"
 
-NewRowDialog::NewRowDialog(TableManager *tableManager, bool keyValue, QWidget *parent) :
+NewRowDialog::NewRowDialog(TableManager *tableManager, bool keyValue, const QString &btnText, QWidget *parent) :
     QDialog(parent),
 	ui(new Ui::NewRowDialog),
 	m_tableManager(tableManager),
@@ -23,6 +23,7 @@ NewRowDialog::NewRowDialog(TableManager *tableManager, bool keyValue, QWidget *p
 {
 	ui->setupUi(this);
 
+    ui->btnAddRow->setText(btnText);
 	if (!m_keyValue) {
 		for (int i = 0; i < m_tableManager->meta()->columnCount(); ++i) {
 			QLabel *label = new QLabel(QString::fromUtf8(m_tableManager->meta()->columnByNum(i)->columnName().c_str()));
@@ -33,7 +34,6 @@ NewRowDialog::NewRowDialog(TableManager *tableManager, bool keyValue, QWidget *p
 			m_valueProbers.push_back(valueProber);
 		}
 	} else {
-		ui->btnAddRow->setText("Szukaj");
 		KeyInfo *keyInfo = m_tableManager->meta()->getTableInfo()->keyByName("primary_key");
 		for (int i = 0; i < keyInfo->keyColumnNum(); ++i) {
 			QLabel *label = new QLabel(QString::fromUtf8(keyInfo->keyPart(i)->columnName().c_str()));

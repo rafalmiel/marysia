@@ -60,7 +60,7 @@ public:
 
 
     bool insertRow( Row* row );
-    void deleteRow( KeyValue* key_value );
+    bool deleteRow( KeyValue* key_value );
     
     BlockStorageManager* blockStorageManager() const { return m_block_storage_manager; }
 

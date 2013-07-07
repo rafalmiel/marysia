@@ -141,11 +141,12 @@ bool TableManager::insertRow(Row* row)
     return res;
 }
 
-void TableManager::deleteRow(KeyValue* key_value)
+bool TableManager::deleteRow(KeyValue* key_value)
 {
     key_value->setKeyInfo( m_tableinfo->page()->primaryKey() );
     m_btree->deleteRow( key_value );
     delete key_value;
+    return m_btree->lastDeleteResult();
 }
 
 void TableManager::closeTable()

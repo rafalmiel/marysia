@@ -18,7 +18,7 @@ class NewRowDialog : public QDialog
 	Q_OBJECT
 	
 public:
-	explicit NewRowDialog(TableManager *tableManager, bool keyValue = false, QWidget *parent = 0);
+    explicit NewRowDialog(TableManager *tableManager, bool keyValue = false, const QString &btnText = "Szukaj", QWidget *parent = 0);
 	~NewRowDialog();
 	Row *row() const;
 	KeyValue *keyValue() const;

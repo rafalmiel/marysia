@@ -28,6 +28,10 @@ private slots:
 
     void on_btnSearchByKey_clicked();
 
+    void on_btnDelete_clicked();
+
+    void on_btnDeleteAll_clicked();
+
 private:
 	Ui::TableViewWidget *ui;
 

@@ -42,7 +42,8 @@ BTree::BTree(Cache* buf):
     m_data_filename( "" ),
     m_tablespace( 0 ),
     m_block_storage_manager( 0 ),
-    m_read_leaf_page( 0 )
+    m_read_leaf_page( 0 ),
+    m_lastDeleteRes( false )
 {
 
 }
@@ -227,6 +228,7 @@ bool BTree::removeRebalance(page_id_t thisNodeId, page_id_t parentNodeId, page_i
         {
             doRebalance = thisNodePage->deleteRow(key, true);
         }
+        m_lastDeleteRes = doRebalance;
     }
 
 

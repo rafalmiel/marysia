@@ -21,6 +21,27 @@
      </property>
     </widget>
    </item>
+   <item row="4" column="0">
+    <widget class="QPushButton" name="btnSearchByKey">
+     <property name="text">
+      <string>Szukaj po kluczu</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QPushButton" name="btnLoadAll">
+     <property name="text">
+      <string>Wczytaj wszystkie rekordy</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QPushButton" name="btnAddRow">
+     <property name="text">
+      <string>Dodaj rekord</string>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="0" colspan="2">
     <widget class="QTableView" name="tableView">
      <attribute name="horizontalHeaderStretchLastSection">
@@ -31,24 +52,17 @@
      </attribute>
     </widget>
    </item>
-   <item row="2" column="0">
-    <widget class="QPushButton" name="btnAddRow">
+   <item row="3" column="0">
+    <widget class="QPushButton" name="btnDelete">
      <property name="text">
-      <string>Dodaj rekord</string>
+      <string>Usuń rekord</string>
      </property>
     </widget>
    </item>
    <item row="3" column="1">
-    <widget class="QPushButton" name="btnSearchByKey">
+    <widget class="QPushButton" name="btnDeleteAll">
      <property name="text">
-      <string>Szukaj po kluczu</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <widget class="QPushButton" name="btnLoadAll">
-     <property name="text">
-      <string>Wczytaj wszystkie rekordy</string>
+      <string>Usuń wszystkie rekordy</string>
      </property>
     </widget>
    </item>

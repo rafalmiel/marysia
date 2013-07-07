@@ -50,6 +50,10 @@ public:
     Row* readNext();
     void readClose();
     void checkLeafCorrectness() const;
+    bool lastDeleteResult() const
+    {
+        return m_lastDeleteRes;
+    }
 
 private:
     void merge(PageIndex* leftNode, PageIndex* rightNode, PageIndexIntern* anchorNode, KeyInfo* key_info, bool atEnd);
@@ -68,6 +72,8 @@ private:
 
     PageIndexLeaf* m_read_leaf_page;
     uint16_t m_read_pos;
+
+    bool m_lastDeleteRes;
 
     //void insertRowToLeaf(page_id_t leaf_page_id, Row* row);
 };

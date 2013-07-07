@@ -51,15 +51,20 @@ void TableViewWidget::on_btnLoadAll_clicked()
     m_tableViewModel->loadAllRows();
 }
 
+void TableViewWidget::on_btnDeleteAll_clicked()
+{
+    m_tableViewModel->removeAllRows();
+}
+
 void TableViewWidget::on_btnAddRow_clicked()
 {
-    NewRowDialog dialog(m_tableManager);
+    NewRowDialog dialog(m_tableManager, false, "Dodaj rekord");
     dialog.exec();
 }
 
 void TableViewWidget::on_btnSearchByKey_clicked()
 {
-    NewRowDialog dialog(m_tableManager, true);
+    NewRowDialog dialog(m_tableManager, true, "Szukaj rekordu");
     dialog.exec();
     if (dialog.ok()) {
         Row *row = m_tableManager->read("primary_key", dialog.keyValue());
@@ -76,3 +81,21 @@ void TableViewWidget::on_btnSearchByKey_clicked()
         }
     }
 }
+
+void TableViewWidget::on_btnDelete_clicked()
+{
+    NewRowDialog dialog(m_tableManager, true, QString::fromUtf8("Usuń rekord"));
+    dialog.exec();
+    if (dialog.ok()) {
+        if (m_tableManager->deleteRow(dialog.keyValue())) {
+            QMessageBox::information(this,
+                                     QString::fromUtf8("Usunięto rekord"),
+                                     QString::fromUtf8("Usunięto rekord o podanym kluczu"));
+        } else {
+            QMessageBox::information(this,
+                                     QString::fromUtf8("Nie znaleciono rekordu"),
+                                     QString::fromUtf8("Nie Znaleziono rekordu o podanym kluczu"));
+        }
+    }
+}
+

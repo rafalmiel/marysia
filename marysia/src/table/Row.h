@@ -58,7 +58,7 @@ public:
     
     void saveLongValues();
 
-    Row& operator<<( Value* value ) { addValue( value ); return *this; };
+    Row& operator<<( Value* value ) { addValue( value ); return *this; }
 private:
     PageTableInfo* m_tableinfo;
     
