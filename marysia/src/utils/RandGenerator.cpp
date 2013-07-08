@@ -90,7 +90,6 @@ Value *RandGenerator::randomValue(Column *column)
         break;
     case BLOB_TYPE:
         size = abs(randomInt(1024*32));
-        size = 1024*32;
         blob = new uint8_t[size];
         ByteData::dataMemSet(blob, 77, size);
         return new ValueBlob(blob, size);

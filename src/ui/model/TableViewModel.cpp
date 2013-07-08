@@ -32,10 +32,8 @@ void TableViewModel::removeAllRows()
     }
     m_tableManager->readClose();
 
-    int c = 0;
     foreach (Row *kv, keys) {
         m_tableManager->deleteRow(kv->createKeyValueByName("primary_key"));
-        c++;
     }
 
     foreach (Row *r, keys) {
