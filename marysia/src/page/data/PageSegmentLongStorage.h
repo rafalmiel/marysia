@@ -65,7 +65,7 @@ private:
     void incListEntryCount();
     void decListEntryCount();
     
-    uint8_t findListSavePos( const page_segment_long_storage_list_item_t& dict_entry ) const;
+    uint16_t findListSavePos( const page_segment_long_storage_list_item_t& dict_entry ) const;
     void writeListEntrytAt(uint8_t pos, const page_segment_long_storage_list_item_t& list_entry);
     page_segment_long_storage_list_item_t removeListEntryAt(uint8_t pos);
     

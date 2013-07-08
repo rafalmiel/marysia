@@ -83,10 +83,10 @@ void PageSegmentLongStorage::decListEntryCount()
     setListEntryCount( listEntryCount() - 1 );
 }
 
-uint8_t PageSegmentLongStorage::findListSavePos(const page_segment_long_storage_list_item_t& dict_entry) const
+uint16_t PageSegmentLongStorage::findListSavePos(const page_segment_long_storage_list_item_t& dict_entry) const
 {
     page_segment_long_storage_list_item_t de;
-    for ( uint8_t i = 0; i < listEntryCount(); ++i )
+    for ( uint16_t i = 0; i < listEntryCount(); ++i )
     {
         de = listEntryAt( i );
         if (de.page_id >= dict_entry.page_id)
@@ -107,9 +107,7 @@ page_segment_long_storage_list_item_t PageSegmentLongStorage::listEntryAt(uint8_
     if ( pos < listEntryCount() )
     {
         m_data->seek( OFFSET_PAGES_INFO_LIST + ( pos * PAGE_LONG_STORAGE_LIST_ENTRY_SIZE ) );
-        
-        //cout << m_data->pos() << endl;
-        
+
         list_entry.page_id = m_data->readUInt32();
         list_entry.max_free_chunk_block = m_data->readUInt16();
     }
@@ -144,8 +142,8 @@ page_segment_long_storage_list_item_t PageSegmentLongStorage::removeListEntryAt(
     pos++;
     uint16_t count = listEntryCount() - pos;
     
-    m_data->shiftLeft( ( count ) * PAGE_LONG_STORAGE_LIST_ENTRY_SIZE, count );
     decListEntryCount();
+    m_data->shiftLeft( ( count ) * PAGE_LONG_STORAGE_LIST_ENTRY_SIZE, PAGE_LONG_STORAGE_LIST_ENTRY_SIZE );
     
     return dict_entry;
 }
@@ -153,7 +151,7 @@ page_segment_long_storage_list_item_t PageSegmentLongStorage::removeListEntryAt(
 uint8_t PageSegmentLongStorage::saveListEntry(const page_segment_long_storage_list_item_t& list_entry)
 {
 
-    uint8_t savePos = findListSavePos(list_entry);
+    uint16_t savePos = findListSavePos(list_entry);
     writeListEntrytAt( savePos, list_entry );
     
     updateMaxChunkCountAvail();
@@ -166,8 +164,10 @@ void PageSegmentLongStorage::writeListEntrytAt(uint8_t pos, const page_segment_l
     uint16_t ptr = OFFSET_PAGES_INFO_LIST + ( pos * PAGE_LONG_STORAGE_LIST_ENTRY_SIZE );
     m_data->seek( ptr );
     bool replace = false;
+
+    uint16_t listEntryCnt = listEntryCount();
     
-    if ( pos < listEntryCount() )
+    if ( pos < listEntryCnt )
     {
         if (m_data->readUInt32At( ptr ) == list_entry.page_id)
         {
@@ -177,9 +177,9 @@ void PageSegmentLongStorage::writeListEntrytAt(uint8_t pos, const page_segment_l
     
     if ( ! replace )
     {
-        uint16_t count = listEntryCount() - pos;
+        uint16_t count = (listEntryCnt > 0) ? (listEntryCount() - pos) : 0;
         
-        m_data->shiftRight( count * PAGE_LONG_STORAGE_LIST_ENTRY_SIZE, count );
+        m_data->shiftRight( count * PAGE_LONG_STORAGE_LIST_ENTRY_SIZE, PAGE_LONG_STORAGE_LIST_ENTRY_SIZE );
         
         m_data->writeUInt32(list_entry.page_id);
         m_data->writeUInt16(list_entry.max_free_chunk_block);

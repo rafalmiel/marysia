@@ -43,6 +43,7 @@ ValueLongBlock::ValueLongBlock() : Value( 10 ), m_raw_data( 0 )
 ValueLongBlock::~ValueLongBlock()
 {
     if ( m_raw_data ) delete [] m_raw_data;
+    m_raw_data = 0;
     
     deleteValue();
     
@@ -54,9 +55,17 @@ ValueLongBlock::~ValueLongBlock()
 
 void ValueLongBlock::deleteValue()
 {
+
     if ( m_value )
     {
         delete ( long_data_info_t* ) m_value;
+    }
+
+    if (m_long_data.raw_data) {
+        delete [] m_long_data.raw_data;
+
+        m_long_data.raw_data = 0;
+        m_long_data.total_len = 0;
     }
 }
 

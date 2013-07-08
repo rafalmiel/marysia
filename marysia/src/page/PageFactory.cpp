@@ -68,7 +68,7 @@ Page* PageFactory::createPage(ByteData* data)
                 page = new PageBlockStorage(data);
                 break;
             default:
-
+                std::cerr << "page type not recognised for page id " << std::endl;
                 break;
         }
     }

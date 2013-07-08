@@ -44,7 +44,7 @@ void File::mopen(const String& filename)
         {
             m_file = open( filename.c_str(), O_RDWR );
 
-            if ( !m_file )
+            if ( m_file < 0 )
             {
                 m_file = open( filename.c_str(), O_RDWR | O_CREAT | O_TRUNC,
                                S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH );
@@ -56,7 +56,7 @@ void File::mopen(const String& filename)
                            S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH );
         }
 
-        if ( !m_file )
+        if ( m_file < 0 )
         {
             exit( 1 );
         }

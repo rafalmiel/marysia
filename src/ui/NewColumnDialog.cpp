@@ -78,6 +78,12 @@ void NewColumnDialog::setupControls()
     ui->lblDefaultValue->setVisible(ci != TYPE_BLOB);
     m_defaultValWidget->setVisible(ci != TYPE_BLOB);
 
+    if (ci == TYPE_BLOB) {
+        ui->cbPK->setVisible(true);
+        ui->cbPK->setEnabled(false);
+        ui->cbPK->setChecked(false);
+    }
+
     ui->lblSize->setVisible(ci != TYPE_BLOB);
     ui->spitSize->setVisible(ci != TYPE_BLOB);
     ui->spitSize->setEnabled(ci == TYPE_VARCHAR);
