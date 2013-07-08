@@ -18,7 +18,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    if (m_tableManager->isOpened()) m_tableManager->closeTable();
     delete ui;
+    delete m_tableManager;
 }
 
 void MainWindow::on_actionCreateTable_triggered()

@@ -21,18 +21,23 @@ void TableViewModel::setRow(Row *row)
 
 void TableViewModel::removeAllRows()
 {
-    QVector<KeyValue *> keys;
+    QVector<Row *> keys;
     beginResetModel();
     foreach (Row *row, m_rows) delete row;
     m_rows.clear();
     m_tableManager->readInit("primary_key");
     Row *row = NULL;
     while (row = m_tableManager->readNext(), row != NULL) {
-        keys.push_back(row->createKeyValueByName("primary_key"));
+        keys.push_back(row);
+    }
+    m_tableManager->readClose();
+
+    foreach (Row *kv, keys) {
+        m_tableManager->deleteRow(kv->createKeyValueByName("primary_key"));
     }
 
-    foreach (KeyValue *kv, keys) {
-        m_tableManager->deleteRow(kv);
+    foreach (Row *r, keys) {
+        delete r;
     }
 
     endResetModel();

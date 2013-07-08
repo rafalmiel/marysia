@@ -22,6 +22,7 @@ TableViewWidget::TableViewWidget(TableManager *tableManager, QWidget *parent) :
 
 TableViewWidget::~TableViewWidget()
 {
+    delete m_tableViewModel;
 	delete ui;
 }
 

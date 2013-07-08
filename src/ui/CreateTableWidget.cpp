@@ -28,6 +28,8 @@ CreateTableWidget::CreateTableWidget(TableManager *tableManager, QWidget *parent
 
 CreateTableWidget::~CreateTableWidget()
 {
+    delete m_createTableModel;
+    delete m_createTableItemDelegate;
     delete ui;
 }
 
