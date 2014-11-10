@@ -58,7 +58,7 @@ void TableViewModel::loadAllRows()
 
 int TableViewModel::rowCount(const QModelIndex &parent) const
 {
-    m_rows.size();
+    return m_rows.size();
 }
 
 int TableViewModel::columnCount(const QModelIndex &parent) const

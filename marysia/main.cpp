@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
     tablemanager->openTable( "uzytkownicy" );
 
     vector<String> vec;
-    uint32_t rowNum = 10000;
+    uint32_t rowNum = 10;
 
     for (int i = 1; i <= rowNum; i+=1)
     {
@@ -110,7 +110,7 @@ int main(int argc, char **argv) {
             cout << "row " << i << " already exists" << endl;
         }
         
-        delete [] blob;
+        //delete [] blob;
     }
 
     Row* row;

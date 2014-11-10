@@ -60,6 +60,10 @@ public:
     Column* columnByName( const String& name ) { return m_page_tableinfo->columnByName( name ); }
     uint16_t columnCount() const {return m_page_tableinfo->columnCount(); }
 
+    uint32_t rowsCount() const { return m_page_tableinfo->rowsCount(); }
+    void incRowsCount() { m_page_tableinfo->setRowsCount(m_page_tableinfo->rowsCount() + 1); }
+    void decRowsCount() { m_page_tableinfo->setRowsCount(m_page_tableinfo->rowsCount() - 1); }
+
     void closeTable();
 
     PageTableInfo* page() const { return m_page_tableinfo; }

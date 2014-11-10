@@ -31,6 +31,8 @@ signals:
 private:
     Ui::CreateTableWidget *ui;
 
+
+
     CreateTableModel *m_createTableModel;
     CreateTableItemDelegate *m_createTableItemDelegate;
 

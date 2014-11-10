@@ -119,6 +119,7 @@ PageTableInfo* PageFactory::createPageTableInfo(const String& tablename)
     tableinfo->setPageType(Page::TABLE_INFO_PAGE);
     tableinfo->setTableName(tablename);
     tableinfo->setSegmentId( 1 );
+    tableinfo->setRowsCount(0);
 
     tableinfo->setFilename( Tableinfo::createTableFilename(tablename) );
 

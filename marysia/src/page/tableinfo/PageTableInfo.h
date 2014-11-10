@@ -39,15 +39,19 @@ public:
     void debugIndex();
 
     enum TableInfoOffset {
-        TABLE_NAME_OFFSET = PAGE_HEADER_SIZE,
-        INFO_COLUMN_COUNT_OFFSET = TABLE_NAME_OFFSET + 72,
-        INFO_KEY_COUNT_OFFSET = INFO_COLUMN_COUNT_OFFSET + 4,
-        DEFAULT_VALUES_OFFSET = INFO_KEY_COUNT_OFFSET + 4,
+        TABLE_NAME_OFFSET =         PAGE_HEADER_SIZE,
+        INFO_ROWS_COUNT_OFFSET =    TABLE_NAME_OFFSET + 72,
+        INFO_COLUMN_COUNT_OFFSET =  INFO_ROWS_COUNT_OFFSET + 4,
+        INFO_KEY_COUNT_OFFSET =     INFO_COLUMN_COUNT_OFFSET + 4,
+        DEFAULT_VALUES_OFFSET =     INFO_KEY_COUNT_OFFSET + 4,
     };
 
     void setTableName(const String& tablename);
     const String& tablename() const;
 
+    void setRowsCount(uint32_t cnt);
+
+    uint32_t rowsCount() const;
     uint16_t columnCount() const;
 
     void addColumn(Column* column);

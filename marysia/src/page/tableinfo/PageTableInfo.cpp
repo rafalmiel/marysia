@@ -136,6 +136,17 @@ const String& PageTableInfo::tablename() const
     return m_tablename;
 }
 
+void PageTableInfo::setRowsCount(uint32_t cnt)
+{
+    m_data->writeUInt32At(INFO_ROWS_COUNT_OFFSET, cnt);
+    m_was_structure_changed = m_is_dirty = true;
+}
+
+uint32_t PageTableInfo::rowsCount() const
+{
+    return m_data->readUInt32At(INFO_ROWS_COUNT_OFFSET);
+}
+
 uint16_t PageTableInfo::columnCount() const
 {
     return m_columns.size();
@@ -232,6 +243,8 @@ ByteData* PageTableInfo::data()
 
         data->seek( DEFAULT_VALUES_OFFSET );
         uint16_t def_vals_pointers[ m_columns.size() ];
+
+        data->writeUInt32At(INFO_ROWS_COUNT_OFFSET, m_data->readUInt32At(INFO_ROWS_COUNT_OFFSET));
 
         uint16_t i = 0;
         for ( columns_vector_t::const_iterator it = m_columns.begin(); it != m_columns.end(); ++it )

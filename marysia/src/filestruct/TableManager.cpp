@@ -137,6 +137,9 @@ bool TableManager::insertRow(Row* row)
     row->setPageTableInfo( m_tableinfo->page() );
     row->setBlockStorageManager( m_block_storage_manager );
     bool res = m_btree->insertRow( row );
+    if (res) {
+        m_tableinfo->incRowsCount();
+    }
     delete row;
     return res;
 }
@@ -145,8 +148,16 @@ bool TableManager::deleteRow(KeyValue* key_value)
 {
     key_value->setKeyInfo( m_tableinfo->page()->primaryKey() );
     m_btree->deleteRow( key_value );
+    if (m_btree->lastDeleteResult()) {
+        m_tableinfo->decRowsCount();
+    }
     delete key_value;
     return m_btree->lastDeleteResult();
+}
+
+uint32_t TableManager::rowsCount() const
+{
+    return m_tableinfo->rowsCount();
 }
 
 void TableManager::closeTable()

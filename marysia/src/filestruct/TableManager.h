@@ -62,6 +62,8 @@ public:
     bool insertRow( Row* row );
     bool deleteRow( KeyValue* key_value );
     
+    uint32_t rowsCount() const;
+
     BlockStorageManager* blockStorageManager() const { return m_block_storage_manager; }
 
 private:

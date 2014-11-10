@@ -1,3 +1,4 @@
+
 #include "TableViewWidget.h"
 #include "ui_TableViewWidget.h"
 
@@ -10,6 +11,8 @@
 
 #include <QInputDialog>
 #include <QMessageBox>
+#include <QLabel>
+
 TableViewWidget::TableViewWidget(TableManager *tableManager, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::TableViewWidget),
@@ -18,6 +21,8 @@ TableViewWidget::TableViewWidget(TableManager *tableManager, QWidget *parent) :
 	ui->setupUi(this);
     m_tableViewModel = new TableViewModel(m_tableManager);
     ui->tableView->setModel(m_tableViewModel);
+
+    ui->lblRowsCount->setText(QString::number(m_tableManager->rowsCount()));
 }
 
 TableViewWidget::~TableViewWidget()
@@ -40,6 +45,8 @@ void TableViewWidget::on_btnAddRandomRows_clicked()
         if (m_tableManager->insertRow(row)) resCount++;
     }
 
+    ui->lblRowsCount->setText(QString::number(m_tableManager->rowsCount()));
+
     QMessageBox::information(this,
                              "Wstawiono nowe rekordy",
                              QString::fromUtf8("Pomyślnie wstawiono ") +
@@ -50,17 +57,24 @@ void TableViewWidget::on_btnAddRandomRows_clicked()
 void TableViewWidget::on_btnLoadAll_clicked()
 {
     m_tableViewModel->loadAllRows();
+    ui->lblRowsCount->setText(QString::number(m_tableManager->rowsCount()));
 }
 
 void TableViewWidget::on_btnDeleteAll_clicked()
 {
     m_tableViewModel->removeAllRows();
+    ui->lblRowsCount->setText(QString::number(m_tableManager->rowsCount()));
+    QMessageBox::information(this,
+                             QString::fromUtf8("Usunięto wszystkie rekordy"),
+                             QString::fromUtf8("Pomyślnie usunięto wszystkie rekordy"));
 }
 
 void TableViewWidget::on_btnAddRow_clicked()
 {
     NewRowDialog dialog(m_tableManager, false, "Dodaj rekord");
     dialog.exec();
+
+    ui->lblRowsCount->setText(QString::number(m_tableManager->rowsCount()));
 }
 
 void TableViewWidget::on_btnSearchByKey_clicked()
@@ -98,5 +112,7 @@ void TableViewWidget::on_btnDelete_clicked()
                                      QString::fromUtf8("Nie Znaleziono rekordu o podanym kluczu"));
         }
     }
+
+    ui->lblRowsCount->setText(QString::number(m_tableManager->rowsCount()));
 }
 
